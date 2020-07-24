@@ -5329,7 +5329,7 @@ A class with members that all have default constructors implicitly gets a defaul
         vector<int> v;
     };
 
-    X x; // means X{{}, {}}; that is the empty string and the empty vector
+    X x; // means X{{ "{{" }}}, {}}; that is the empty string and the empty vector
 
 Beware that built-in types are not properly default constructed:
 
@@ -8044,7 +8044,7 @@ Subscripting the resulting base pointer will lead to invalid object access and p
 
     void use(B*);
 
-    D a[] = {{1, 2}, {3, 4}, {5, 6}};
+    D a[] = {{ "{{" }}1, 2}, {3, 4}, {5, 6}};
     B* p = a;     // bad: a decays to &a[0] which is converted to a B*
     p[1].x = 7;   // overwrite D[0].y
 
@@ -12171,7 +12171,7 @@ In the rare cases where the slicing was deliberate the code can be surprising.
     class Shape { /* ... */ };
     class Circle : public Shape { /* ... */ Point c; int r; };
 
-    Circle c {{0, 0}, 42};
+    Circle c {{ "{{" }}0, 0}, 42};
     Shape s {c};    // copy construct only the Shape part of Circle
     s = c;          // or copy assign only the Shape part of Circle
 
@@ -12179,7 +12179,7 @@ In the rare cases where the slicing was deliberate the code can be surprising.
     {
         dest = src;
     }
-    Circle c2 {{1, 1}, 43};
+    Circle c2 {{ "{{" }}1, 1}, 43};
     assign(c, c2);   // oops, not the whole state is transferred
     assert(c == c2); // if we supply copying, we should also provide comparison,
                      // but this will likely return false
@@ -15394,7 +15394,7 @@ To make error handling systematic, robust, and non-repetitive.
 
     void use()
     {
-        Foo bar {{Thing{1}, Thing{2}, Thing{monkey}}, {"my_file", "r"}, "Here we go!"};
+        Foo bar {{ "{{" }}Thing{1}, Thing{2}, Thing{monkey}}, {"my_file", "r"}, "Here we go!"};
         // ...
     }
 
